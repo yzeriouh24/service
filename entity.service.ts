@@ -17,8 +17,7 @@ export class EntityService<T> extends Service<T> {
    */
   get(id: number): Observable<T> {
     return this.http.get<T>(`${environment.api.core}/${this.endpoint}/${id}`).pipe(
-      first(),
-      map((result: T) => this.serializer.fromJson(result)),
+      first()
     );
   }
 
@@ -28,11 +27,7 @@ export class EntityService<T> extends Service<T> {
    */
   fetch(): Observable<List<T>> {
     return this.http.get<List<T>>(`${environment.api.core}/${this.endpoint}`).pipe(
-      first(),
-      map((result: List<T>) => {
-        result.data = result.data.map(object => this.serializer.fromJson(object));
-        return result;
-      }),
+      first()
     );
   }
 
@@ -42,8 +37,7 @@ export class EntityService<T> extends Service<T> {
    */
   create(data: Partial<T>): Observable<T> {
     return this.http.post<T>(`${environment.api.core}/${this.endpoint}`, this.serializer.toJson(data)).pipe(
-      first(),
-      map((result: T) => this.serializer.fromJson(result)),
+      first()
     );
   }
 }
